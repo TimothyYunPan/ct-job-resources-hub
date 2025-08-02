@@ -1,6 +1,7 @@
 import CommentBtn from "@/modules/home/comment-btn";
 import Image from "next/image";
 import PostList from "./post-list";
+import InternshipList from "./internship-list";
 import { DB_NAME } from "@/config/constants";
 
 const Content = () => {
@@ -25,7 +26,14 @@ const Content = () => {
         <CommentBtn />
       </div>
 
-      <PostList />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+        <div>
+          <PostList />
+        </div>
+        <div>
+          <InternshipList />
+        </div>
+      </div>
     </>
   );
 };

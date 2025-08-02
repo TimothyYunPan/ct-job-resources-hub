@@ -25,6 +25,7 @@ const PostList = () => {
   const { posts = [], totalPages } = data || {};
   return (
     <div className="mt-4">
+      <h2 className="text-xl font-bold mb-4">Articles</h2>
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
       {!isLoading && posts.length === 0 && <div>No posts</div>}
