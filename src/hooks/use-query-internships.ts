@@ -7,10 +7,11 @@ import { useSearchParams } from "next/navigation";
 const useQueryInternships = () => {
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("internshipPage") || "1");
+  const search = searchParams.get("internshipSearch") || "";
 
   return useQuery({
-    queryKey: ["internships", page],
-    queryFn: () => getInternships(page),
+    queryKey: ["internships", page, search],
+    queryFn: () => getInternships(page, search),
   });
 };
 

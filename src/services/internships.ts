@@ -1,5 +1,11 @@
-export const getInternships = async (page: number = 1) => {
-  const response = await fetch(`/api/internships/list?page=${page}`);
+export const getInternships = async (page: number = 1, search: string = "") => {
+  const params = new URLSearchParams();
+  params.append("page", page.toString());
+  if (search.trim()) {
+    params.append("search", search);
+  }
+
+  const response = await fetch(`/api/internships/list?${params}`);
   if (!response.ok) {
     throw new Error("Failed to fetch internships");
   }
