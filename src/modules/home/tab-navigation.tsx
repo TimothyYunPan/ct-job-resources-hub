@@ -36,7 +36,7 @@ const TabNavigation = () => {
             : "text-white/50 hover:text-white/80"
             }`}
         >
-          Internships
+          Summer 2026 Internships
         </button>
         <button
           onClick={() => handleTabChange("posts")}

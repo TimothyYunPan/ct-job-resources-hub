@@ -17,7 +17,7 @@ const PostList = () => {
       <div>
         <button
           onClick={() => setIsCommentEditorOpen(true)}
-          className="w-full h-[36px] flex justify-center items-center rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors text-sm font-medium cursor-pointer"
+          className="w-full h-[42px] flex justify-center items-center rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors text-sm font-medium cursor-pointer"
           title="Add new article"
         >
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
