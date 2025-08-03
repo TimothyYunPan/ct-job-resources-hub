@@ -2,6 +2,7 @@ import CommentBtn from "@/modules/home/comment-btn";
 import Image from "next/image";
 import PostList from "./post-list";
 import InternshipList from "./internship-list";
+import TabNavigation from "./tab-navigation";
 import { DB_NAME } from "@/config/constants";
 
 const Content = () => {
@@ -19,20 +20,9 @@ const Content = () => {
         Share and discover valuable job-hunting resources, experiences, and
         tools to help CT students land the ideal job.
       </p>
-      <p className="text-sm text-white/40 mt-2">
-        *Just a simple side project for practicing full stack development lol
-      </p>
-      <div className="w-full mt-6">
-        <CommentBtn />
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
-        <div>
-          <PostList />
-        </div>
-        <div>
-          <InternshipList />
-        </div>
+      <div className="mt-4">
+        <TabNavigation />
       </div>
     </>
   );

@@ -10,7 +10,7 @@ interface InternshipPaginationProps {
 const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("internshipPage") || "1");
-  const postPage = searchParams.get("page") || "1";
+  const activeTab = searchParams.get("tab") || "internships";
   const search = searchParams.get("internshipSearch") || "";
 
   // Show more pages around current page (up to 10 visible)
@@ -29,7 +29,7 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
 
   const buildUrl = (page: number) => {
     const params = new URLSearchParams();
-    params.set("page", postPage);
+    params.set("tab", activeTab);
     params.set("internshipPage", page.toString());
     if (search) {
       params.set("internshipSearch", search);

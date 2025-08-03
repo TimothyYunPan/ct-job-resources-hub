@@ -1,20 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CommentEditor from "./comment-editor";
 
 const CommentBtn = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOpenEditor = () => {
+      setIsOpen(true);
+    };
+
+    window.addEventListener('openCommentEditor', handleOpenEditor);
+
+    return () => {
+      window.removeEventListener('openCommentEditor', handleOpenEditor);
+    };
+  }, []);
+
   return (
-    <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="w-full h-[32px] flex justify-center items-center rounded-lg bg-white rounded-ld p-4 text-sm text-black font-bold cursor-pointer"
-      >
-        What new resources do you have?
-      </button>
-      <CommentEditor isOpen={isOpen} setIsOpen={setIsOpen} />
-    </>
+    <CommentEditor isOpen={isOpen} setIsOpen={setIsOpen} />
   );
 };
 
