@@ -11,6 +11,7 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("internshipPage") || "1");
   const postPage = searchParams.get("page") || "1";
+  const search = searchParams.get("internshipSearch") || "";
 
   // Show more pages around current page (up to 10 visible)
   const getVisiblePages = () => {
@@ -26,12 +27,22 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
 
   const visiblePages = getVisiblePages();
 
+  const buildUrl = (page: number) => {
+    const params = new URLSearchParams();
+    params.set("page", postPage);
+    params.set("internshipPage", page.toString());
+    if (search) {
+      params.set("internshipSearch", search);
+    }
+    return `?${params.toString()}`;
+  };
+
   return (
     <div className="flex items-center justify-center gap-1 text-sm">
       {/* Previous button */}
       {currentPage > 1 && (
         <Link
-          href={`?page=${postPage}&internshipPage=${currentPage - 1}`}
+          href={buildUrl(currentPage - 1)}
           className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
         >
           ←
@@ -42,7 +53,7 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
       {visiblePages[0] > 1 && (
         <>
           <Link
-            href={`?page=${postPage}&internshipPage=1`}
+            href={buildUrl(1)}
             className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
           >
             1
@@ -56,7 +67,7 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
       {/* Visible pages */}
       {visiblePages.map((page) => (
         <Link
-          href={`?page=${postPage}&internshipPage=${page}`}
+          href={buildUrl(page)}
           key={page}
           className={`px-3 py-2 rounded-md transition-all duration-200 ${currentPage === page
             ? "bg-white/20 text-white font-semibold"
@@ -74,7 +85,7 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
             <span className="px-2 py-2 text-white/30">...</span>
           )}
           <Link
-            href={`?page=${postPage}&internshipPage=${totalPages}`}
+            href={buildUrl(totalPages)}
             className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
           >
             {totalPages}
@@ -85,7 +96,7 @@ const InternshipPagination = ({ totalPages }: InternshipPaginationProps) => {
       {/* Next button */}
       {currentPage < totalPages && (
         <Link
-          href={`?page=${postPage}&internshipPage=${currentPage + 1}`}
+          href={buildUrl(currentPage + 1)}
           className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
         >
           →
