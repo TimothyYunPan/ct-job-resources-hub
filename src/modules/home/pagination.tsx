@@ -10,7 +10,7 @@ interface PaginationProps {
 const Pagination = ({ totalPages }: PaginationProps) => {
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1");
-  const internshipPage = searchParams.get("internshipPage") || "1";
+  const activeTab = searchParams.get("tab") || "posts";
 
   // Show more pages around current page (up to 10 visible)
   const getVisiblePages = () => {
@@ -26,12 +26,19 @@ const Pagination = ({ totalPages }: PaginationProps) => {
 
   const visiblePages = getVisiblePages();
 
+  const buildUrl = (page: number) => {
+    const params = new URLSearchParams();
+    params.set("tab", activeTab);
+    params.set("page", page.toString());
+    return `?${params.toString()}`;
+  };
+
   return (
     <div className="flex items-center justify-center gap-1 text-sm">
       {/* Previous button */}
       {currentPage > 1 && (
         <Link
-          href={`?page=${currentPage - 1}&internshipPage=${internshipPage}`}
+          href={buildUrl(currentPage - 1)}
           className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
         >
           ←
@@ -42,7 +49,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
       {visiblePages[0] > 1 && (
         <>
           <Link
-            href={`?page=1&internshipPage=${internshipPage}`}
+            href={buildUrl(1)}
             className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
           >
             1
@@ -56,7 +63,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
       {/* Visible pages */}
       {visiblePages.map((page) => (
         <Link
-          href={`?page=${page}&internshipPage=${internshipPage}`}
+          href={buildUrl(page)}
           key={page}
           className={`px-3 py-2 rounded-md transition-all duration-200 ${currentPage === page
             ? "bg-white/20 text-white font-semibold"
@@ -74,7 +81,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
             <span className="px-2 py-2 text-white/30">...</span>
           )}
           <Link
-            href={`?page=${totalPages}&internshipPage=${internshipPage}`}
+            href={buildUrl(totalPages)}
             className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
           >
             {totalPages}
@@ -85,7 +92,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
       {/* Next button */}
       {currentPage < totalPages && (
         <Link
-          href={`?page=${currentPage + 1}&internshipPage=${internshipPage}`}
+          href={buildUrl(currentPage + 1)}
           className="px-3 py-2 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-all duration-200"
         >
           →

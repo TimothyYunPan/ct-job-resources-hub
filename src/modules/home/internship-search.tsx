@@ -11,15 +11,14 @@ const InternshipSearch = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams);
-    const postPage = searchParams.get("page") || "1";
 
     if (searchTerm.trim()) {
       params.set("internshipSearch", searchTerm.trim());
     } else {
       params.delete("internshipSearch");
     }
+    params.set("tab", "internships");
     params.set("internshipPage", "1"); // Reset to first page when searching
-    params.set("page", postPage);
 
     router.push(`?${params.toString()}`);
   };
@@ -27,15 +26,14 @@ const InternshipSearch = () => {
   const handleClear = () => {
     setSearchTerm("");
     const params = new URLSearchParams(searchParams);
-    const postPage = searchParams.get("page") || "1";
     params.delete("internshipSearch");
+    params.set("tab", "internships");
     params.set("internshipPage", "1");
-    params.set("page", postPage);
     router.push(`?${params.toString()}`);
   };
 
   return (
-    <div className="mb-4">
+    <div>
       <form onSubmit={handleSearch} className="flex gap-2">
         <input
           type="text"
@@ -46,7 +44,7 @@ const InternshipSearch = () => {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors text-sm"
+          className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors text-sm cursor-pointer"
         >
           Search
         </button>
@@ -54,7 +52,7 @@ const InternshipSearch = () => {
           <button
             type="button"
             onClick={handleClear}
-            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-md transition-colors text-sm"
+            className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-md transition-colors text-sm cursor-pointer"
           >
             Clear
           </button>
