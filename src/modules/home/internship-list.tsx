@@ -11,7 +11,7 @@ const InternshipList = () => {
 
   return (
     <div className="mt-4">
-      <h2 className="text-xl font-bold mb-4">Summer 2026 Internships</h2>
+      {/* <h2 className="text-xl font-bold mb-4">Summer 2026 Internships</h2> */}
       <InternshipSearch />
       {isLoading && <div className="text-white/50 mt-4">Loading...</div>}
       {error && <div className="text-red-400">Error: {error.message}</div>}
