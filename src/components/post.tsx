@@ -7,6 +7,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
+import ContentRenderer from "./content-renderer";
 
 interface PostProps {
   post?: Post;
@@ -14,7 +15,6 @@ interface PostProps {
 }
 
 const Post = ({ post, editable }: PostProps) => {
-  console.log(post);
   const { id = "", title = "--", content = "-", createdAt = 0 } = post || {};
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
@@ -64,7 +64,7 @@ const Post = ({ post, editable }: PostProps) => {
   return (
     <div className="w-full border-b border-white/10 py-6">
       <h3 className="text-md text-white font-bold">{title}</h3>
-      <p className="text-sm text-white/50 mt-2">{content}</p>
+      <ContentRenderer content={content} />
       <p className="text-sm text-white/50 mt-2">
         {new Date(createdAt).toLocaleString()}
       </p>
