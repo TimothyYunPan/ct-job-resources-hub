@@ -1,8 +1,11 @@
-export const getInternships = async (page: number = 1, search: string = "") => {
+export const getInternships = async (page: number = 1, search: string = "", roleCategory: string = "") => {
   const params = new URLSearchParams();
   params.append("page", page.toString());
   if (search.trim()) {
     params.append("search", search);
+  }
+  if (roleCategory && roleCategory !== "all") {
+    params.append("roleCategory", roleCategory);
   }
 
   const response = await fetch(`/api/internships/list?${params}`);

@@ -7,17 +7,26 @@ import useQueryInternships from "@/hooks/use-query-internships";
 
 const InternshipList = () => {
   const { data, isLoading, error } = useQueryInternships();
-  const { internships = [], totalPages, search } = data || {};
+  const { internships = [], totalPages, search, roleCategory } = data || {};
+  const hasActiveFilter = !!(search || (roleCategory && roleCategory !== "all"));
 
   return (
     <div className="mt-4">
-      {/* <h2 className="text-xl font-bold mb-4">Summer 2026 Internships</h2> */}
       <InternshipSearch />
       {isLoading && <div className="text-white/50 mt-4">Loading...</div>}
       {error && <div className="text-red-400">Error: {error.message}</div>}
       {!isLoading && internships.length === 0 && (
-        <div className="text-white/50">
-          {search ? `No internships found for "${search}"` : "No internships found"}
+        <div className="text-white/50 mt-4">
+          {search || (roleCategory && roleCategory !== "all") ? (
+            <>
+              No internships found for current filters.<br />
+              <span className="underline cursor-pointer" onClick={() => window.location.search = '?tab=internships'}>
+                Try clearing filters.
+              </span>
+            </>
+          ) : (
+            "No internships found"
+          )}
         </div>
       )}
       {!isLoading &&
