@@ -4,13 +4,6 @@ import Post from "@/components/post";
 import { useRouter } from "next/navigation";
 import useQueryPost from "@/hooks/use-query-post";
 
-const mockPost: Post = {
-  id: "1",
-  title: "Post 1",
-  content: "Content 1",
-  createdAt: 0,
-};
-
 const Content = () => {
   const router = useRouter();
   const { data, isLoading, error } = useQueryPost();
@@ -23,7 +16,9 @@ const Content = () => {
       >
         {"← Back"}
       </button>
-      <Post post={data} editable={true} />
+      {isLoading && <div className="text-white/50 mt-4">Loading...</div>}
+      {error && <div className="text-red-400 mt-4">Error: {error.message}</div>}
+      {!isLoading && !error && <Post post={data} editable={true} />}
     </div>
   );
 };

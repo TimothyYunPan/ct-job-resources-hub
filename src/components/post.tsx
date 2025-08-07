@@ -15,7 +15,16 @@ interface PostProps {
 }
 
 const Post = ({ post, editable }: PostProps) => {
-  const { id = "", title = "--", content = "-", createdAt = 0 } = post || {};
+  // 確保 post 存在且有必要的屬性
+  if (!post) {
+    return (
+      <div className="w-full border-b border-white/10 py-6">
+        <div className="text-white/50">Loading post...</div>
+      </div>
+    );
+  }
+
+  const { id = "", title = "--", content = "-", createdAt = 0 } = post;
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editContent, setEditContent] = useState(content);
