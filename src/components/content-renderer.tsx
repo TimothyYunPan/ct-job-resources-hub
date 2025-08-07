@@ -9,6 +9,11 @@ interface ContentRendererProps {
 }
 
 const ContentRenderer = ({ content }: ContentRendererProps) => {
+  // 確保 content 存在
+  if (!content) {
+    return <p className="text-sm text-white/50 mt-2">No content</p>;
+  }
+
   const urls = useMemo(() => extractUrls(content), [content]);
 
   if (urls.length === 0) {
