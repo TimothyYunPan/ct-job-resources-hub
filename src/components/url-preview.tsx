@@ -18,6 +18,11 @@ interface UrlMetadata {
 const metadataCache = new Map<string, UrlMetadata>();
 
 const UrlPreview = ({ url }: UrlPreviewProps) => {
+  // 確保 URL 存在
+  if (!url) {
+    return null;
+  }
+
   const [metadata, setMetadata] = useState<UrlMetadata | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
